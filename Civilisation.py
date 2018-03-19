@@ -18,3 +18,4 @@ class Civilisation:
             if carry_food_anterieur and not(ant.carry_food):
                 ant.compteur+=1
                 city_nest.quantite_nourriture+=1
+                
