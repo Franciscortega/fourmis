@@ -63,7 +63,7 @@ class Ant:
         self.carry_food = True
         self.__returning = True
       
-    def drop_food(self):
+    def drop_food(self, civilisation):
         '''Désactive le booléen de possession de nourriture et réinitialise son comportement'''
         self.carry_food = False
         self.__path = []
