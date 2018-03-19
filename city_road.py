@@ -50,4 +50,9 @@ class City:
         self.L_adj_city=L_adj_city
         
     def plot_element(self):
+        x1 = self.x - 5
+        x2 = self.x + 5
+        y1 = self.y - 5
+        y2 = self.y +5
+        self.canvas.create_oval(x1,x2,y1,y2)
         
