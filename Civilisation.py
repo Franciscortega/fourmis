@@ -24,4 +24,5 @@ class Civilisation:
 
 
 #En dessous : gestion de la génétique
-        
+
+
