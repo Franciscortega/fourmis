@@ -20,6 +20,7 @@ class Ant:
         self.__destination = city
         self.__distance = 0
         self.__path = []
+        self.compteur=0
         self.__returning = False
         self.carry_food = False
         self.home = home
