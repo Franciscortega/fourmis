@@ -44,7 +44,7 @@ class City:
             road=self.L_road[i]
             city1,city2=road.city1,road.city2
             if city1==self:
-                L_adj_city.append(city2)
+                L_adj_city.append(city2)    
             elif city2==self:
                 L_adj_city.append(city1)
         self.L_adj_city=L_adj_city

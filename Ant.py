@@ -12,7 +12,7 @@ import numpy as np
 class Ant:
     'Class for ant individual elements.'
     
-    def __init__(self, alpha, beta, gamma, city,home, goal):
+    def __init__(self, alpha, beta, gamma, city, home, goal):
         self.alpha = alpha
         self.beta = beta
         self.gamma = gamma
