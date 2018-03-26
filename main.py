@@ -26,7 +26,7 @@ cities = 7
 print("Définition du canvas")
 master = tk.Tk()
 
-view = Canvas(master, width = canvas_width, height = canvas_heigh)
+view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
 
 nb_ants=20
 
