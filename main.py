@@ -5,24 +5,25 @@ Created on Mon Mar 19 17:34:40 2018
 
 @author: Francisco
 """
+print("Définition des fourmis")
 
 import tkinter as tk
-import city_road.py
-import Civilisation.py
-import Ant.py
+import city_road
+import Civilisation
+import Ant
 
-
+print("Définition des fourmis")
 ####### MAIN SCRIPT - BE PSO ##############
 
 #Parameters
-
+print("Définition des paramètres")
 canvas_width = 1000
 canvas_heigh = 800
 cities = 7
 
 
 #Création du canvas
-
+print("Définition du canvas")
 master = tk.Tk()
 
 view = Canvas(master, width = canvas_width, height = canvas_heigh)
@@ -33,7 +34,7 @@ nb_ants=20
 
 
 #Creation des villes
-
+print("Définition des villes")
 L_cities=[]
 source=City("Source",0,0,view)
 L_cities.append(source)
@@ -51,6 +52,7 @@ anthill=City("Anthill",600,750,view)
 L_cities.append(anthill)
 
 #Création des routes et prise en compte dans les villes
+print("Définition des routes")
 L_roads=[]
 road1=Road(source,city1,view)
 road2=Road(source,city5,view)
@@ -84,7 +86,7 @@ for i in range(len(L_cities)):
 
 
 #Création des fourmis (aléatoires parce qu'on est comme ça). On va en mettre 
-
+print("Définition des fourmis")
 L_ants=[]
 for i in range(nb_ants):
     alpha=10*np.random.random()-5
@@ -94,6 +96,7 @@ for i in range(nb_ants):
 
 
 #Civ creation
-Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, #je sais pas quoi mettre dans "canvas")
+print("Définition de la civisilation")
+Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
 
 #Life running

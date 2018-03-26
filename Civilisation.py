@@ -1,5 +1,5 @@
-import city_road.py
-import Ant.py
+import city_road
+import Ant
 
 class Civilisation:
     def __init__(self,city_source,city_nest, Lcities,Lroads,Lants,canvas):

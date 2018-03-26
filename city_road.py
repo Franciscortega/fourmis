@@ -1,4 +1,4 @@
-import Ant.py
+import Ant
 import tkinter as tk
 
 class Road:
