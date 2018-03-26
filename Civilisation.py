@@ -20,15 +20,22 @@ class Civilisation:
             if carry_food_anterieur and not(ant.carry_food):
                 ant.compteur+=1
                 self.city_nest.quantite_nourriture+=1
-        self.update_canvas
+        self.update_canvas()
                 
     #Ici on définit la méthode affichage
     def update_canvas(self):
+        print("Enter updating")
         self.canvas.delete("all")
         for city in self.L_cities:
-            city.plot_element
+            print("City")
+            city.plot_element()
         for road in self.L_roads:
-            road.plot_element
+            print("Road")
+            road.plot_element()
+#        for ant in self.L_ants :
+#            ant.draw_ant(self.canvas)
+#            
+        
             
 #En dessous : gestion de la génétique
 

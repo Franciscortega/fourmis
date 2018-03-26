@@ -21,10 +21,7 @@ class Road:
         y1 = self.city1.y
         x2 = self.city2.x
         y2 = self.city2.y
-        self.canvas.create_line(x1,y1,x2,y2, width = width_value)
-        
-        
-
+        self.canvas.create_line(x1,y1,x2,y2)
 
 
 class City:
@@ -51,8 +48,8 @@ class City:
         
     def plot_element(self):
         x1 = self.x - 5
-        x2 = self.x + 5
-        y1 = self.y - 5
+        x2 = self.y -5
+        y1 = self.x + 5
         y2 = self.y +5
-        self.canvas.create_oval(x1,x2,y1,y2)
+        self.canvas.create_oval(x1,x2,y1,y2, fill = 'blue')
         
