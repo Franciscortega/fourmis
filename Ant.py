@@ -27,6 +27,7 @@ class Ant:
         self.home = home
         self.goal = goal
         self.nb_same_road = 0
+        self.L_road_seen=[]
        
     def selectRoad(self):
         '''Fonction qui choisi la route à prendre à partir d'une ville. Doit 
@@ -69,6 +70,11 @@ class Ant:
     def drop_food(self, civilisation):
         '''Désactive le booléen de possession de nourriture et réinitialise son comportement'''
         self.carry_food = False
+        for a_road in self.__path:
+            if a_road in self.L_road_seen :
+                nb_same_road+=1
+            else:
+                self.L_road_seen.append(a_road)
         self.__path = []
         self.__returning = False
        
@@ -85,7 +91,7 @@ class Ant:
         if self.__returning:
         #Si la fourmi est en train de revenir sur ses pas, elle reprend simplement les étapes précédentes.
             if type(self.__position) == City :
-                self.stepBack()
+                self.step_back()
             
             elif type(self.__position) == Road:
                 self.__distance -= 1

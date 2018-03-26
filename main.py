@@ -112,4 +112,5 @@ Civ.update_canvas()
 for ind_gene in range(nb_tour_tot):
     for ind in range(nb_genetique):
         Civ.un_tour()
+    
         
