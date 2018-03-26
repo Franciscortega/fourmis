@@ -8,9 +8,15 @@ Created on Mon Mar 19 17:34:40 2018
 print("Définition des fourmis")
 
 import tkinter as tk
-from city_road import * 
+import city_road
+from city_road import Road
 from Civilisation import * 
 from Ant import *
+
+import os
+os.chdir('/Users/Francisco/Documents/GitHub/fourmis')
+#print(os.getcwd() )
+#int(input('?'))
 
 print("Définition des fourmis")
 ####### MAIN SCRIPT - BE PSO ##############
@@ -18,11 +24,8 @@ print("Définition des fourmis")
 #Parameters
 print("Définition des paramètres")
 canvas_width = 1000
-canvas_heigh = 800
+canvas_heigh = 500
 cities = 7
-nb_ants=20
-nb_genetique=20
-nb_tour_tot=20
 
 
 #Création du canvas
@@ -30,7 +33,16 @@ print("Définition du canvas")
 master = tk.Tk()
 
 view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
+view.pack()
 
+def startLife():
+    Civ.update_canvas
+    view.after(50, startLife)
+
+startButton = tk.Button(master, text='Start', command= startLife)
+startButton.pack()
+
+nb_ants=20
 
 #Création population
 
@@ -38,19 +50,19 @@ view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
 #Creation des villes
 print("Définition des villes")
 L_cities=[]
-source=City("Source",0,0,view)
+source=city_road.City("Source",10,10,view)
 L_cities.append(source)
-city1=City("City1",20,100,view)
+city1=city_road.City("City1",400,100,view)
 L_cities.append(city1)
-city2=City("City1",250,300,view)
+city2=city_road.City("City1",250,200,view)
 L_cities.append(city2)
-city3=City("City1",400,100,view)
+city3=city_road.City("City1",500,100,view)
 L_cities.append(city3)
-city4=City("City1",350,300,view)
+city4=city_road.City("City1",350,400,view)
 L_cities.append(city4)
-city5=City("City1",40,700,view)
+city5=city_road.City("City1",40,476,view)
 L_cities.append(city5)
-anthill=City("Anthill",600,750,view)
+anthill=city_road.City("Anthill",600,450,view)
 L_cities.append(anthill)
 
 #Création des routes et prise en compte dans les villes
@@ -87,11 +99,9 @@ for i in range(len(L_cities)):
     city.my_roads(L_roads)
 
 
-#Création des fourmis (aléatoires parce qu'on est comme ça) 
-
+#Création des fourmis (aléatoires parce qu'on est comme ça). On va en mettre 
 print("Définition des fourmis")
 L_ants=[]
-
 for i in range(nb_ants):
     alpha=10*np.random.random()-5
     beta=10*np.random.random()-5
@@ -103,7 +113,8 @@ for i in range(nb_ants):
 print("Définition de la civilisation")
 Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
 
-#Mise en place
 Civ.update_canvas()
+Civ.un_tour()
+view.mainloop()
 
 

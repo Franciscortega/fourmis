@@ -1,5 +1,5 @@
-from city_road import *
-from Ant import *
+import city_road
+import Ant
 
 class Civilisation:
     def __init__(self,city_source,city_nest, Lcities,Lroads,Lants,canvas):
@@ -24,11 +24,18 @@ class Civilisation:
                 
     #Ici on définit la méthode affichage
     def update_canvas(self):
+        print("Enter updating")
         self.canvas.delete("all")
         for city in self.L_cities:
-            city.plot_element
+            print("City")
+            city.plot_element()
         for road in self.L_roads:
-            road.plot_element
+            print("Road")
+            road.plot_element()
+#        for ant in self.L_ants :
+#            ant.draw_ant(self.canvas)
+#            
+        
             
 #En dessous : gestion de la génétique
 

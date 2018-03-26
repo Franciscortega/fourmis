@@ -8,7 +8,12 @@ Created on Mon Mar 12 15:49:06 2018
 
 import numpy.random as rnd
 import numpy as np
-import city_road
+
+import os
+os.chdir('/Users/Francisco/Documents/GitHub/fourmis')
+
+#from city_road import City
+import city_road as cr
 
 class Ant:
     'Class for ant individual elements.'
@@ -26,10 +31,8 @@ class Ant:
         self.carry_food = False
         self.home = home
         self.goal = goal
-        self.nb_same_road = 0
-        self.L_road_seen=[]
        
-    def selectRoad(self):
+    def selectRoad(self, phero_level):
         '''Fonction qui choisi la route à prendre à partir d'une ville. Doit 
         nécessairement être lancée quand la position est sur une ville '''
         choices = self.__position.L_road
@@ -50,7 +53,7 @@ class Ant:
                 if value > max_value:
                     selected = index
                     max_value = value
-                    
+        
         self.__position = selected
         self.__distance = 1
         self.drop_pheromone(selected)
@@ -70,11 +73,6 @@ class Ant:
     def drop_food(self, civilisation):
         '''Désactive le booléen de possession de nourriture et réinitialise son comportement'''
         self.carry_food = False
-        for a_road in self.__path:
-            if a_road in self.L_road_seen :
-                nb_same_road+=1
-            else:
-                self.L_road_seen.append(a_road)
         self.__path = []
         self.__returning = False
        
@@ -84,16 +82,32 @@ class Ant:
         inner_term = self.__beta * existant_level + self.__gamma
         value = self.__alpha * np.sin(inner_term)
         road.pheromon += value
+        
+    def draw_ant(self,canvas):
+        if type(self.__position) == Road:
+            x_vector = self.__position.city1.x - self.__position.city2.x
+            y_vector = self.__position.city1.y - self.__position.city2.y
+            ant_x = self.__position.city1.x + self.__distance*x_vector/(self.__position.lenght)
+            ant_y = self.__position.city1.y + self.__distance*y_vector/(self.__position.lenght)
+            x1 = ant_x - 5
+            x2 = ant_y -5
+            y1 = ant_x + 5
+            y2 = ant_y +5
+            if self.carry_food:
+                color = 'black'
+            else:
+                color = 'red'
+            self.canvas.create_oval(x1,x2,y1,y2, fill = color)
     
     
     def run_step(self):
         '''Fait avancer la fourmis d'un pas dans le cycle de la vie'''
         if self.__returning:
         #Si la fourmi est en train de revenir sur ses pas, elle reprend simplement les étapes précédentes.
-            if type(self.__position) == City :
-                self.step_back()
+            if type(self.__position) == city_road.City :
+                self.stepBack()
             
-            elif type(self.__position) == Road:
+            elif type(self.position) == Road:
                 self.__distance -= 1
                 if self.__distance == 0:
                     self.__position = self.__destination
@@ -103,7 +117,8 @@ class Ant:
                         
         else:
         #Si la fourmi avance, elle doit tout le temps choisir son chemin.
-            if type(self.__position) == city_road.City :
+            print(self.__position)
+            if type(self.__position) == cr.City :
                 self.selectRoad()
         
             elif type(self.__position) == Road:
@@ -113,7 +128,7 @@ class Ant:
                     self.__position = self.__destination
                     #Détection de l'arrivée
                     if self.__destination == self.__goal:
-                        self.take_food()
+                        self.take_food
                     else:
                         self.__path.append(self.__position)
                         self.__distance = 0
