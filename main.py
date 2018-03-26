@@ -107,10 +107,3 @@ Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
 Civ.update_canvas()
 
 
-#Evolution de tout ça
-
-for ind_gene in range(nb_tour_tot):
-    for ind in range(nb_genetique):
-        Civ.un_tour()
-    
-        
