@@ -20,6 +20,9 @@ print("Définition des paramètres")
 canvas_width = 1000
 canvas_heigh = 800
 cities = 7
+nb_ants=20
+nb_genetique=20
+nb_tour_tot=20
 
 
 #Création du canvas
@@ -27,7 +30,7 @@ print("Définition du canvas")
 master = tk.Tk()
 
 view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
-nb_ants=20
+
 
 #Création population
 
@@ -84,9 +87,11 @@ for i in range(len(L_cities)):
     city.my_roads(L_roads)
 
 
-#Création des fourmis (aléatoires parce qu'on est comme ça). On va en mettre 
+#Création des fourmis (aléatoires parce qu'on est comme ça) 
+
 print("Définition des fourmis")
 L_ants=[]
+
 for i in range(nb_ants):
     alpha=10*np.random.random()-5
     beta=10*np.random.random()-5
@@ -98,4 +103,13 @@ for i in range(nb_ants):
 print("Définition de la civilisation")
 Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
 
-#Life running
+#Mise en place
+Civ.update_canvas()
+
+
+#Evolution de tout ça
+
+for ind_gene in range(nb_tour_tot):
+    for ind in range(nb_genetique):
+        Civ.un_tour()
+        

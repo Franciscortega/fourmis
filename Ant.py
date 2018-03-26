@@ -8,6 +8,7 @@ Created on Mon Mar 12 15:49:06 2018
 
 import numpy.random as rnd
 import numpy as np
+import city_road
 
 class Ant:
     'Class for ant individual elements.'
@@ -25,8 +26,9 @@ class Ant:
         self.carry_food = False
         self.home = home
         self.goal = goal
+        self.nb_same_road = 0
        
-    def selectRoad(self, phero_level):
+    def selectRoad(self):
         '''Fonction qui choisi la route à prendre à partir d'une ville. Doit 
         nécessairement être lancée quand la position est sur une ville '''
         choices = self.__position.L_road
@@ -82,10 +84,10 @@ class Ant:
         '''Fait avancer la fourmis d'un pas dans le cycle de la vie'''
         if self.__returning:
         #Si la fourmi est en train de revenir sur ses pas, elle reprend simplement les étapes précédentes.
-            if type(self.position) == City :
+            if type(self.__position) == City :
                 self.stepBack()
             
-            elif type(self.position) == Road:
+            elif type(self.__position) == Road:
                 self.__distance -= 1
                 if self.__distance == 0:
                     self.__position = self.__destination
@@ -95,17 +97,17 @@ class Ant:
                         
         else:
         #Si la fourmi avance, elle doit tout le temps choisir son chemin.
-            if type(self.position) == City :
+            if type(self.__position) == city_road.City :
                 self.selectRoad()
         
-            elif type(self.position) == Road:
+            elif type(self.__position) == Road:
             #Si on est sur une route, on gère simplement l'avancement en distance
                 self.__distance += 1
                 if self.__distance == self.__position.length:
                     self.__position = self.__destination
                     #Détection de l'arrivée
                     if self.__destination == self.__goal:
-                        self.take_food
+                        self.take_food()
                     else:
                         self.__path.append(self.__position)
                         self.__distance = 0

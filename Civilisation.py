@@ -1,5 +1,5 @@
-import city_road
-import Ant
+from city_road import *
+from Ant import *
 
 class Civilisation:
     def __init__(self,city_source,city_nest, Lcities,Lroads,Lants,canvas):
@@ -20,7 +20,7 @@ class Civilisation:
             if carry_food_anterieur and not(ant.carry_food):
                 ant.compteur+=1
                 self.city_nest.quantite_nourriture+=1
-        self.update_canvas
+        self.update_canvas()
                 
     #Ici on définit la méthode affichage
     def update_canvas(self):
