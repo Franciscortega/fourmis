@@ -8,9 +8,9 @@ Created on Mon Mar 19 17:34:40 2018
 print("Définition des fourmis")
 
 import tkinter as tk
-import city_road
-import Civilisation
-import Ant
+from city_road import * 
+from Civilisation import * 
+from Ant import *
 
 print("Définition des fourmis")
 ####### MAIN SCRIPT - BE PSO ##############
@@ -27,7 +27,6 @@ print("Définition du canvas")
 master = tk.Tk()
 
 view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
-
 nb_ants=20
 
 #Création population
@@ -82,7 +81,7 @@ L_roads.append(road12)
 
 for i in range(len(L_cities)):
     city=L_cities[i]
-    city.my_roads()
+    city.my_roads(L_roads)
 
 
 #Création des fourmis (aléatoires parce qu'on est comme ça). On va en mettre 
@@ -96,7 +95,7 @@ for i in range(nb_ants):
 
 
 #Civ creation
-print("Définition de la civisilation")
+print("Définition de la civilisation")
 Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
 
 #Life running
