@@ -22,116 +22,138 @@ class Ant:
         self.alpha = alpha
         self.beta = beta
         self.gamma = gamma
-        self.__position = city
-        self.__destination = city
-        self.__distance = 0
-        self.__path = []
+        self.position = city
+        self.destination = city
+        self.distance = 0
+        self.path = [home]
         self.compteur=0
-        self.__returning = False
+        self.returning = False
         self.carry_food = False
         self.home = home
         self.goal = goal
        
-    def selectRoad(self, phero_level):
+    def selectRoad(self):
         '''Fonction qui choisi la route à prendre à partir d'une ville. Doit 
         nécessairement être lancée quand la position est sur une ville '''
-        choices = self.__position.L_road
-        choices.pop(self.__path[-2])
+        choices = self.position.L_road[:]
+        if len(self.path) > 2 :
+            choices.remove(self.path[-2])
+        if len(choices)>1 :
+            selected = 0
+            max_value = 0
+            q = rnd.rand()
+            if q<0.4:
+                for index,road in enumerate(choices):
+                    value = road.pheromon*(1/road.length)**(self.beta)
+                    if value > max_value:
+                        selected = index
+                        max_value = value
+            else :
+                for index,road in enumerate(choices):
+                    value = (road.pheromon**(self.alpha))*((1/road.length)**(self.beta))
+                    if value > max_value:
+                        selected = index
+                        max_value = value
+                    
+        else:
+            selected = 0
         
-        selected = 0
-        max_value = 0
-        q = rnd.rand()
-        if q<0.4:
-            for road,index in choices:
-                value = road.pheromon*(1/road.length)^(self.__beta)
-                if value > max_value:
-                    selected = index
-                    max_value = value
-        else :
-            for road,index in choices:
-                value = road.pheromon^(self.__alpha)*(1/road.length)^(self.__beta)
-                if value > max_value:
-                    selected = index
-                    max_value = value
-        
-        self.__position = selected
-        self.__distance = 1
-        self.drop_pheromone(selected)
-        
+        selected_road = choices[selected]
+        cities = [selected_road.city1, selected_road.city2]
+        cities.remove(self.path[-1])
+        self.position = selected_road
+        self.distance = 1
+        self.destination = cities[0]
+        self.drop_pheromone(self.position)
+        self.path.append(self.position)
+
     def step_back(self):
-        road = self.__path.pop()
-        self.__distance = road.lenght
-        self.__position = road
-        self.__destination = self.__path.pop()
+        road = self.path.pop()
+        self.distance = road.length
+        self.drop_pheromone(road)
+        self.position = road
+        self.destination = self.path.pop()
         
        
     def take_food(self):
         '''Active le booléen de possession de nourriture et entame le retour'''
         self.carry_food = True
-        self.__returning = True
+        self.returning = True
       
-    def drop_food(self, civilisation):
+    def drop_food(self):
         '''Désactive le booléen de possession de nourriture et réinitialise son comportement'''
         self.carry_food = False
-        self.__path = []
-        self.__returning = False
+        self.path = [self.home]
+        self.returning = False
        
     def drop_pheromone(self, road):
         '''Dépose de la phéromone sur la voie choisie'''
         existant_level = road.pheromon
-        inner_term = self.__beta * existant_level + self.__gamma
-        value = self.__alpha * np.sin(inner_term)
+        inner_term = self.beta * existant_level + self.gamma
+        value = abs(self.alpha * np.sin(inner_term))
         road.pheromon += value
         
     def draw_ant(self,canvas):
-        if type(self.__position) == Road:
-            x_vector = self.__position.city1.x - self.__position.city2.x
-            y_vector = self.__position.city1.y - self.__position.city2.y
-            ant_x = self.__position.city1.x + self.__distance*x_vector/(self.__position.lenght)
-            ant_y = self.__position.city1.y + self.__distance*y_vector/(self.__position.lenght)
+        if type(self.position) == cr.Road:
+            x_vector = self.position.city2.x - self.position.city1.x
+            y_vector = self.position.city2.y - self.position.city1.y
+            ant_x = self.position.city1.x + self.distance*x_vector/(self.position.length)
+            ant_y = self.position.city1.y + self.distance*y_vector/(self.position.length)
             x1 = ant_x - 5
             x2 = ant_y -5
             y1 = ant_x + 5
-            y2 = ant_y +5
+            y2 = ant_y + 5
             if self.carry_food:
-                color = 'black'
-            else:
                 color = 'red'
-            self.canvas.create_oval(x1,x2,y1,y2, fill = color)
+            else:
+                color = 'green'
+            canvas.create_oval(x1,x2,y1,y2, fill = color)
+        else :
+            if self.carry_food:
+                color = 'red'
+            else:
+                color = 'green'
+            ant_x = self.position.x
+            ant_y = self.position.y
+            x1 = ant_x - 5
+            x2 = ant_y -5
+            y1 = ant_x + 5
+            y2 = ant_y + 5
+            canvas.create_oval(x1,x2,y1,y2, fill = color)
+            
     
     
     def run_step(self):
         '''Fait avancer la fourmis d'un pas dans le cycle de la vie'''
-        if self.__returning:
+        if self.returning:
         #Si la fourmi est en train de revenir sur ses pas, elle reprend simplement les étapes précédentes.
-            if type(self.__position) == city_road.City :
-                self.stepBack()
+            if type(self.position) == cr.City :
+                self.step_back()
             
-            elif type(self.position) == Road:
-                self.__distance -= 1
-                if self.__distance == 0:
-                    self.__position = self.__destination
-                    self.__distance = 0
-                    if self.__position == self.__home:
-                        self.drop_food
+            elif type(self.position) == cr.Road:
+                self.distance -= 1
+                if self.distance <= 0:
+                    self.position = self.destination
+                    self.distance = 0
+                    if self.position == self.home:
+                        self.drop_food()
                         
         else:
         #Si la fourmi avance, elle doit tout le temps choisir son chemin.
-            print(self.__position)
-            if type(self.__position) == cr.City :
+            if type(self.position) == cr.City :
                 self.selectRoad()
         
-            elif type(self.__position) == Road:
+            elif type(self.position) == cr.Road:
             #Si on est sur une route, on gère simplement l'avancement en distance
-                self.__distance += 1
-                if self.__distance == self.__position.length:
-                    self.__position = self.__destination
+                self.distance += 1
+                if self.distance >= self.position.length:
+                    self.position = self.destination
                     #Détection de l'arrivée
-                    if self.__destination == self.__goal:
-                        self.take_food
+                    if self.destination == self.goal:
+                        self.take_food()
                     else:
-                        self.__path.append(self.__position)
-                        self.__distance = 0
+                        self.path.append(self.position)
+                        self.distance = 0
                     
                         
                     

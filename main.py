@@ -36,13 +36,14 @@ view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
 view.pack()
 
 def startLife():
-    Civ.update_canvas
-    view.after(50, startLife)
+    global Civ
+    Civ.un_tour()
+    view.after(1, startLife)
 
 startButton = tk.Button(master, text='Start', command= startLife)
 startButton.pack()
 
-nb_ants=20
+nb_ants=1000
 
 #Création population
 
@@ -73,7 +74,6 @@ road2=Road(source,city5,view)
 road3=Road(source,city3,view)
 road4=Road(city1,city2,view)
 road5=Road(city2,city3,view)
-road6=Road(city1,city2,view)
 road7=Road(city2,city5,view)
 road8=Road(city3,city4,view)
 road9=Road(city4,city5,view)
@@ -86,7 +86,6 @@ L_roads.append(road2)
 L_roads.append(road3)
 L_roads.append(road4)
 L_roads.append(road5)
-L_roads.append(road6)
 L_roads.append(road7)
 L_roads.append(road8)
 L_roads.append(road9)
@@ -111,10 +110,8 @@ for i in range(nb_ants):
 
 #Civ creation
 print("Définition de la civilisation")
-Civ=Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
-
+Civ = Civilisation(source,anthill,L_cities,L_roads,L_ants, view)
 Civ.update_canvas()
-Civ.un_tour()
 view.mainloop()
 
 
