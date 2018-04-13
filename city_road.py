@@ -13,10 +13,10 @@ class Road:
         self.canvas = canvas
         
     def evaporate_pheromon(self):
-        self.pheromon*=0.995
+        self.pheromon*=0.999
         
     def plot_element(self):
-        linewidth = (1+self.pheromon)/100
+        linewidth = (1+10*self.pheromon)/100
         x1 = self.city1.x
         y1 = self.city1.y
         x2 = self.city2.x

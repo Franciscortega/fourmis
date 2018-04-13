@@ -35,15 +35,22 @@ master = tk.Tk()
 view = tk.Canvas(master, width = canvas_width, height = canvas_heigh)
 view.pack()
 
+indice_parcours = 0
 def startLife():
     global Civ
+    global indice_parcours
     Civ.un_tour()
+    indice_parcours+=1
+    if indice_parcours%4000==0:
+        Civ.evolve()
+        Civ.raz()
+        print(indice_parcours)
     view.after(1, startLife)
 
 startButton = tk.Button(master, text='Start', command= startLife)
 startButton.pack()
 
-nb_ants=1000
+nb_ants=15
 
 #Création population
 
@@ -98,7 +105,7 @@ for i in range(len(L_cities)):
     city.my_roads(L_roads)
 
 
-#Création des fourmis (aléatoires parce qu'on est comme ça). On va en mettre 
+#Création des fourmis (aléatoires parce qu'on est comme ça).
 print("Définition des fourmis")
 L_ants=[]
 for i in range(nb_ants):

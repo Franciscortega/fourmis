@@ -1,5 +1,6 @@
-import city_road
-import Ant
+from city_road import *
+from Ant import *
+import numpy as np
 
 class Civilisation:
     
@@ -108,7 +109,7 @@ class Civilisation:
 
         for i in range(len(L_ant_last)):
             ant=L_ant_last[i]
-            val=ant.compteur
+            val=ant.nb_same_road
             if val>max1:
                 max2=max1
                 i2_exp=i1_exp
@@ -132,7 +133,7 @@ class Civilisation:
 
         for i in range(len(L_ant_last)):
             ant=L_ant_last[i]
-            val=ant.nb_same_road
+            val=ant.compteur
             if val<min1:
                 min2=min1
                 i2_trav=i1_trav
@@ -334,3 +335,23 @@ class Civilisation:
         L_ant_last.append(best_ant_exp2)
 
         self.L_ants=L_ant_last
+
+
+
+    def raz(self):
+        
+        for ant in self.L_ants:
+            ant.position = self.source
+            ant.destination = self.source
+            ant.distance = 0
+            ant.path = [self.source]
+            ant.compteur=0
+            ant.returning = False
+            ant.carry_food = False
+            ant.home = self.source
+            ant.goal = self.nest
+            ant.nb_same_road = 0
+            ant.L_road_seen=[]
+            
+        for road in self.L_roads:
+            road.pheromon=0.1
