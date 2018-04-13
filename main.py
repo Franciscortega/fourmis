@@ -14,7 +14,7 @@ from Civilisation import *
 from Ant import *
 
 import os
-os.chdir('/Users/Francisco/Documents/GitHub/fourmis')
+#os.chdir('/Users/Francisco/Documents/GitHub/fourmis')
 #print(os.getcwd() )
 #int(input('?'))
 

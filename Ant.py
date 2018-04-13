@@ -10,7 +10,7 @@ import numpy.random as rnd
 import numpy as np
 
 import os
-os.chdir('/Users/Francisco/Documents/GitHub/fourmis')
+#os.chdir('/Users/Francisco/Documents/GitHub/fourmis')
 
 #from city_road import City
 import city_road as cr
@@ -75,6 +75,7 @@ class Ant:
         self.carry_food = False
         self.__path = []
         self.__returning = False
+        
        
     def drop_pheromone(self, road):
         '''Dépose de la phéromone sur la voie choisie'''
