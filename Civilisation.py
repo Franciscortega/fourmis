@@ -220,9 +220,9 @@ class Civilisation:
 
         cross_trav2=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
 
-        
+        L_ant_last.pop(0)
         #Mutation de tous les autres
-        for i in range(len(L_ant_last)):
+        for i in range(len(L_ant_last)-1):
             ant=L_ant_last[i]
             if np.random.random()<1/3:
                 ant.alpha=ant.alpha+self.amplitude_mutation*(np.random.random()-0.5)

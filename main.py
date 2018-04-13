@@ -44,7 +44,7 @@ def startLife():
     if indice_parcours%4000==0:
         Civ.evolve()
         Civ.raz()
-        print(indice_parcours)
+        print(int(indice_parcours/4000)," ",len(Civ.L_ants))
     view.after(1, startLife)
 
 startButton = tk.Button(master, text='Start', command= startLife)
@@ -58,19 +58,19 @@ nb_ants=15
 #Creation des villes
 print("Définition des villes")
 L_cities=[]
-source=city_road.City("Source",10,10,view)
+source=city_road.City("Source",10/2,10/2,view)
 L_cities.append(source)
-city1=city_road.City("City1",400,100,view)
+city1=city_road.City("City1",400/2,100/2,view)
 L_cities.append(city1)
-city2=city_road.City("City1",250,200,view)
+city2=city_road.City("City1",250/2,200/2,view)
 L_cities.append(city2)
-city3=city_road.City("City1",500,100,view)
+city3=city_road.City("City1",500/2,100/2,view)
 L_cities.append(city3)
-city4=city_road.City("City1",350,400,view)
+city4=city_road.City("City1",350/2,400/2,view)
 L_cities.append(city4)
-city5=city_road.City("City1",40,476,view)
+city5=city_road.City("City1",40/2,476/2,view)
 L_cities.append(city5)
-anthill=city_road.City("Anthill",600,450,view)
+anthill=city_road.City("Anthill",600/2,450/2,view)
 L_cities.append(anthill)
 
 #Création des routes et prise en compte dans les villes
