@@ -83,8 +83,8 @@ class Civilisation:
             elif val<min2:
                 i2_exp=i
                 min2=val
-        best_ant_exp=L_ant_last.pop(i1_exp)
-        best_ant_exp2=L_ant_last.pop(i2_exp)
+        best_ant_exp=L_ant_last[i1_exp]
+        best_ant_exp2=L_ant_last[i2_exp]
 
         # Supprimer les champions de la liste des fourmis restantes (on les met de côté pour la recherche des pires)
         if best_ant_exp in L_ant_last:
