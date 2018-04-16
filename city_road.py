@@ -3,20 +3,21 @@ import tkinter as tk
 
 class Road:
     "Une jolie route toute mimi"
-    def __init__(self,v,v2,canvas,pher=0.1,length=-1):
+    def __init__(self,v,v2,canvas,rho,pher=0.1,length=-1):
         if length==-1: #Dans le cas où on ne donne pas de longueur, on la calcule à partir des coordonnées
-            length=int(((v.x-v2.x)**2+(v.y-v2.y)**2)**0.5)/10
+            length=int(((v.x-v2.x)**2+(v.y-v2.y)**2)**0.5)/100
         self.length=length
         self.pheromon=pher
         self.city1=v
         self.city2=v2
         self.canvas = canvas
+        self.rho = rho
         
     def evaporate_pheromon(self):
-        self.pheromon*=0.999
+        self.pheromon*=self.rho
         
     def plot_element(self):
-        linewidth = (1+10*self.pheromon)/100
+        linewidth = abs((1+10*self.pheromon))
         x1 = self.city1.x
         y1 = self.city1.y
         x2 = self.city2.x

@@ -26,6 +26,7 @@ print("Définition des paramètres")
 canvas_width = 1000
 canvas_heigh = 500
 cities = 7
+rho = 0.93
 
 
 #Création du canvas
@@ -41,16 +42,16 @@ def startLife():
     global indice_parcours
     Civ.un_tour()
     indice_parcours+=1
-    if indice_parcours%4000==0:
+    if indice_parcours%400==0:
         Civ.evolve()
         Civ.raz()
         print(int(indice_parcours/4000)," ",len(Civ.L_ants))
-    view.after(1, startLife)
+    view.after(50, startLife)
 
 startButton = tk.Button(master, text='Start', command= startLife)
 startButton.pack()
 
-nb_ants=15
+nb_ants=50
 
 #Création population
 
@@ -110,6 +111,7 @@ L_cities.append(anthill)
 #Création des routes et prise en compte dans les villes
 print("Définition des routes")
 L_roads=[]
+
 road1=Road(source,city1,view)
 road2=Road(source,city5,view)
 road3=Road(source,city3,view)
@@ -155,7 +157,6 @@ road42=Road(city16,anthill,view)
 road43=Road(city13,anthill,view)
 road44=Road(city10,anthill,view)
 road45=Road(city17,anthill,view)
-
 
 
 L_roads.append(road1)
