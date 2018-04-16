@@ -359,6 +359,8 @@ class Civilisation:
 
 
         L_ant_last.pop(0)
+        L_ant_last.pop(0)
+        L_ant_last.pop(0)
         
         #Mutation de tous les autres
         for i in range(len(L_ant_last)):
