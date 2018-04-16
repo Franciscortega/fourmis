@@ -36,7 +36,7 @@ class Civilisation:
         for road in self.L_roads:
             road.plot_element()
         #for ant in self.L_ants :
-         #   ant.draw_ant(self.canvas)
+           # ant.draw_ant(self.canvas)
             
         
             

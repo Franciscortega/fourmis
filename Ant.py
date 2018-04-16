@@ -33,6 +33,7 @@ class Ant:
         self.goal = goal
         self.nb_same_road = 0
         self.L_road_seen=[]
+        self.path_length = 0
        
     def selectRoad(self):
         '''Fonction qui choisi la route à prendre à partir d'une ville. Doit 
@@ -44,7 +45,7 @@ class Ant:
             selected = 0
             max_value = 0
             q = rnd.rand()
-            if q<0.4:
+            if q<0.3:
                 for index,road in enumerate(choices):
                     value = road.pheromon*(1/road.length)**(self.beta)
                     if value > max_value:
@@ -68,6 +69,7 @@ class Ant:
         self.destination = cities[0]
         self.drop_pheromone(self.position)
         self.path.append(self.position)
+        self.path_length += self.position.length
 
     def step_back(self):
         road = self.path.pop()
@@ -92,12 +94,13 @@ class Ant:
                 self.L_road_seen.append(a_road)
         self.path = [self.home]
         self.returning = False
+        self.path_length = 0
        
     def drop_pheromone(self, road):
         '''Dépose de la phéromone sur la voie choisie'''
         existant_level = road.pheromon
         inner_term = self.beta * existant_level + self.gamma
-        value = abs(self.alpha * np.sin(inner_term))
+        value = (0.01+self.returning*50/(self.path_length+0.1))*abs(self.alpha * np.sin(inner_term))/100
         road.pheromon += value
         
     def draw_ant(self,canvas):
