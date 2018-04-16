@@ -128,7 +128,7 @@ class Civilisation:
         #Trouver les deux pires travailleurs restants
         i1_trav=0
         min1=100000
-        min2=10000 #min1<min2
+        min2=100000 #min1<min2
         i2_trav=0
 
         for i in range(len(L_ant_last)):
@@ -220,9 +220,148 @@ class Civilisation:
 
         cross_trav2=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
 
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav3=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav4=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav5=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav6=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav7=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav8=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav9=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        if np.random.random()>0.5:
+            alpha=best_ant_trav.alpha
+        else:
+            alpha=best_ant_trav2.alpha
+
+        if np.random.random()>0.5:
+            beta=best_ant_trav.beta
+        else:
+            beta=best_ant_trav2.beta
+
+        if np.random.random()>0.5:
+            gamma=best_ant_trav.gamma
+        else:
+            gamma=best_ant_trav.gamma
+
+        cross_trav10=Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+
         L_ant_last.pop(0)
+        
         #Mutation de tous les autres
-        for i in range(len(L_ant_last)-1):
+        for i in range(len(L_ant_last)):
             ant=L_ant_last[i]
             if np.random.random()<1/3:
                 ant.alpha=ant.alpha+self.amplitude_mutation*(np.random.random()-0.5)
@@ -312,7 +451,43 @@ class Civilisation:
                 ant.gamma=max(-5,ant.gamma)
                 ant.gamma=min(5,ant.gamma)
             cross_trav2=ant
+
+        if np.random.random()<self.proba_post_crossover:
+            ant=cross_trav3
+            if np.random.random()<1/3:
+                ant.alpha=ant.alpha+self.amplitude_mutation*(np.random.random()-0.5)
+                ant.alpha=max(-5,ant.alpha)
+                ant.alpha=min(5,ant.alpha)
+
+            elif np.random.random()<2/3:
+                ant.beta=ant.beta+self.amplitude_mutation*(np.random.random()-0.5)
+                ant.beta=max(-5,ant.beta)
+                ant.beta=min(5,ant.beta)
+                
+            else:
+                ant.gamma=ant.gamma+self.amplitude_mutation*(np.random.random()-0.5)
+                ant.gamma=max(-5,ant.gamma)
+                ant.gamma=min(5,ant.gamma)
+            cross_trav3=ant
             
+        if np.random.random()<self.proba_post_crossover:
+            ant=cross_trav4
+            if np.random.random()<1/3:
+                ant.alpha=ant.alpha+self.amplitude_mutation*(np.random.random()-0.5)
+                ant.alpha=max(-5,ant.alpha)
+                ant.alpha=min(5,ant.alpha)
+
+            elif np.random.random()<2/3:
+                ant.beta=ant.beta+self.amplitude_mutation*(np.random.random()-0.5)
+                ant.beta=max(-5,ant.beta)
+                ant.beta=min(5,ant.beta)
+                
+            else:
+                ant.gamma=ant.gamma+self.amplitude_mutation*(np.random.random()-0.5)
+                ant.gamma=max(-5,ant.gamma)
+                ant.gamma=min(5,ant.gamma)
+            cross_trav4=ant
+   
         
 
         #Migration : création d'une nouvelle fourmi
@@ -321,19 +496,47 @@ class Civilisation:
         gamma=10*np.random.random()-5
 
         new_ant = Ant(alpha,beta,gamma,self.source,self.source,self.nest)
-        
+
+        alpha=10*np.random.random()-5
+        beta=10*np.random.random()-5
+        gamma=10*np.random.random()-5
+
+        new_ant2 = Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        alpha=10*np.random.random()-5
+        beta=10*np.random.random()-5
+        gamma=10*np.random.random()-5
+
+        new_ant3 = Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+        alpha=10*np.random.random()-5
+        beta=10*np.random.random()-5
+        gamma=10*np.random.random()-5
+
+        new_ant4 = Ant(alpha,beta,gamma,self.source,self.source,self.nest)
+
+
 
         #On met tout (crossover, bests, nouvelle fourmi) dans la liste qu'on met à jour
         L_ant_last.append(new_ant)
+        L_ant_last.append(new_ant2)
+        L_ant_last.append(cross_trav3)
+        L_ant_last.append(cross_trav4)
+        #L_ant_last.append(cross_trav5)
+        #L_ant_last.append(cross_trav6)
+        #L_ant_last.append(cross_trav7)
+        #L_ant_last.append(cross_trav8)
+        #L_ant_last.append(cross_trav9)
+        #L_ant_last.append(cross_trav10)
         L_ant_last.append(cross_trav)
         L_ant_last.append(cross_exp)
-        L_ant_last.append(cross_exp2)
+        #L_ant_last.append(cross_exp2)
         L_ant_last.append(cross_trav2)
         L_ant_last.append(best_ant_trav)
         L_ant_last.append(best_ant_trav2)
         L_ant_last.append(best_ant_exp)
         L_ant_last.append(best_ant_exp2)
-
+        
         self.L_ants=L_ant_last
 
 
