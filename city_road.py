@@ -51,9 +51,17 @@ class City:
         self.L_road = selected_roads
         
     def plot_element(self):
+        
+        if self.name == "Source": 
+            color = 'green'
+        elif self.name == "Anthill":
+            color = 'red'
+        else:
+            color = "blue"
+            
         x1 = self.x - 10
         x2 = self.y -10
         y1 = self.x + 10
         y2 = self.y +10
-        self.canvas.create_oval(x1,x2,y1,y2, fill = 'blue')
+        self.canvas.create_oval(x1,x2,y1,y2, fill = color)
         

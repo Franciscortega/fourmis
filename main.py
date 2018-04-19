@@ -51,7 +51,7 @@ def startLife():
 startButton = tk.Button(master, text='Start', command= startLife)
 startButton.pack()
 
-nb_ants=50
+nb_ants=500
 
 #Création population
 
@@ -157,6 +157,7 @@ road42=Road(city16,anthill,view,rho)
 road43=Road(city13,anthill,view,rho)
 road44=Road(city10,anthill,view,rho)
 road45=Road(city17,anthill,view,rho)
+road46=Road(city20,city19,view,rho)
 
 
 L_roads.append(road1)
@@ -202,6 +203,7 @@ L_roads.append(road42)
 L_roads.append(road43)
 L_roads.append(road44)
 L_roads.append(road45)
+L_roads.append(road46)
 
 
 

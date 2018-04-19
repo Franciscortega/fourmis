@@ -19,9 +19,9 @@ class Civilisation:
         "Toutes les fourmis avancent d'un pas et le dépôt de phéromone est fait si nécessaire"
         for i in range(len(self.L_ants)):
             ant= self.L_ants[i]
-            carry_food_anterieur=ant.carry_food
+            carry_food_anterieur=ant.returning
             ant.run_step()
-            if carry_food_anterieur and not(ant.carry_food):
+            if carry_food_anterieur and not(ant.returning):
                 ant.compteur+=1
                 self.quantite_nourriture+=1
         for road in self.L_roads:
@@ -552,7 +552,6 @@ class Civilisation:
             ant.path = [self.source]
             ant.compteur=0
             ant.returning = False
-            ant.carry_food = False
             ant.home = self.source
             ant.goal = self.nest
             ant.nb_same_road = 0

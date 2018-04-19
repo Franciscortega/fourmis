@@ -28,13 +28,44 @@ class Ant:
         self.path = [home]
         self.compteur=0
         self.returning = False
-        self.carry_food = False
         self.home = home
         self.goal = goal
         self.nb_same_road = 0
         self.L_road_seen=[]
         self.path_length = 0
        
+
+    def step_back(self):
+        road = self.path.pop()
+        self.distance = road.length
+        self.drop_pheromone(road)
+        self.position = road
+        self.destination = self.path.pop()
+        
+       
+    def take_food(self):
+        '''Active le booléen de possession de nourriture et entame le retour'''
+        self.returning = True
+      
+    def drop_food(self):
+        '''Désactive le booléen de possession de nourriture et réinitialise son comportement'''
+        self.returning = False
+        for a_road in self.path:
+            if a_road in self.L_road_seen :
+                self.nb_same_road+=1
+            else:
+                self.L_road_seen.append(a_road)
+        self.path = [self.home]
+        self.returning = False
+        self.path_length = 0
+       
+    def drop_pheromone(self, road):
+        '''Dépose de la phéromone sur la voie choisie'''
+        existant_level = road.pheromon
+        inner_term = self.beta * existant_level + self.gamma
+        value = (0.01+self.returning*50/(self.path_length+0.1))*abs(self.alpha * np.sin(inner_term))/100
+        road.pheromon += value
+        
     def selectRoad(self):
         '''Fonction qui choisi la route à prendre à partir d'une ville. Doit 
         nécessairement être lancée quand la position est sur une ville '''
@@ -71,68 +102,6 @@ class Ant:
         self.path.append(self.position)
         self.path_length += self.position.length
 
-    def step_back(self):
-        road = self.path.pop()
-        self.distance = road.length
-        self.drop_pheromone(road)
-        self.position = road
-        self.destination = self.path.pop()
-        
-       
-    def take_food(self):
-        '''Active le booléen de possession de nourriture et entame le retour'''
-        self.carry_food = True
-        self.returning = True
-      
-    def drop_food(self):
-        '''Désactive le booléen de possession de nourriture et réinitialise son comportement'''
-        self.carry_food = False
-        for a_road in self.path:
-            if a_road in self.L_road_seen :
-                self.nb_same_road+=1
-            else:
-                self.L_road_seen.append(a_road)
-        self.path = [self.home]
-        self.returning = False
-        self.path_length = 0
-       
-    def drop_pheromone(self, road):
-        '''Dépose de la phéromone sur la voie choisie'''
-        existant_level = road.pheromon
-        inner_term = self.beta * existant_level + self.gamma
-        value = (0.01+self.returning*50/(self.path_length+0.1))*abs(self.alpha * np.sin(inner_term))/100
-        road.pheromon += value
-        
-    def draw_ant(self,canvas):
-        if type(self.position) == cr.Road:
-            x_vector = self.position.city2.x - self.position.city1.x
-            y_vector = self.position.city2.y - self.position.city1.y
-            ant_x = self.position.city1.x + self.distance*x_vector/(self.position.length)
-            ant_y = self.position.city1.y + self.distance*y_vector/(self.position.length)
-            x1 = ant_x - 5
-            x2 = ant_y -5
-            y1 = ant_x + 5
-            y2 = ant_y + 5
-            if self.carry_food:
-                color = 'red'
-            else:
-                color = 'green'
-            canvas.create_oval(x1,x2,y1,y2, fill = color)
-        else :
-            if self.carry_food:
-                color = 'red'
-            else:
-                color = 'green'
-            ant_x = self.position.x
-            ant_y = self.position.y
-            x1 = ant_x - 5
-            x2 = ant_y -5
-            y1 = ant_x + 5
-            y2 = ant_y + 5
-            canvas.create_oval(x1,x2,y1,y2, fill = color)
-            
-    
-    
     def run_step(self):
         '''Fait avancer la fourmis d'un pas dans le cycle de la vie'''
         if self.returning:
@@ -165,7 +134,37 @@ class Ant:
                         self.path.append(self.position)
                         self.distance = 0
                     
-                        
                     
+#L'affichage fonctionne mais l'affiche de prend pas en compte la bonne direction sur la 
+#route ce qui peut donner une impression de chaos
+
+                       
+#    def draw_ant(self,canvas):
+#        if type(self.position) == cr.Road:
+#            x_vector = self.position.city2.x - self.position.city1.x
+#            y_vector = self.position.city2.y - self.position.city1.y
+#            ant_x = self.position.city1.x + self.distance*x_vector/(self.position.length)
+#            ant_y = self.position.city1.y + self.distance*y_vector/(self.position.length)
+#            x1 = ant_x - 5
+#            x2 = ant_y -5
+#            y1 = ant_x + 5
+#            y2 = ant_y + 5
+#            if self.returning:
+#                color = 'red'
+#            else:
+#                color = 'green'
+#            canvas.create_oval(x1,x2,y1,y2, fill = color)
+#        else :
+#            if self.returning:
+#                color = 'red'
+#            else:
+#                color = 'green'
+#            ant_x = self.position.x
+#            ant_y = self.position.y
+#            x1 = ant_x - 5
+#            x2 = ant_y -5
+#            y1 = ant_x + 5
+#            y2 = ant_y + 5
+#            canvas.create_oval(x1,x2,y1,y2, fill = color)         
             
                 

@@ -26,7 +26,8 @@ print("Définition des paramètres")
 canvas_width = 1000
 canvas_heigh = 500
 cities = 10
-rho = 0.99
+rho = 0.95
+nb_ants=100
 
 
 #Création du canvas
@@ -42,16 +43,15 @@ def startLife():
     global indice_parcours
     Civ.un_tour()
     indice_parcours+=1
-    if indice_parcours%400==0:
+    if indice_parcours%1000==0:
         Civ.evolve()
         Civ.raz()
-        print(int(indice_parcours/4000)," ",len(Civ.L_ants))
-    view.after(100, startLife)
+        print(int(indice_parcours/1000)," ",len(Civ.L_ants))
+    view.after(10, startLife)
 
 startButton = tk.Button(master, text='Start', command= startLife)
 startButton.pack()
 
-nb_ants=50
 
 #Création population
 
